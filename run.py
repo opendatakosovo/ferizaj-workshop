@@ -28,7 +28,7 @@ def hello(komuna,viti):
 	                    "$month":"$dataNenshkrimit"
 	                }
 	            },
-	            "vleraKontrates":{
+	            "vlera":{
 	                "$sum":"$kontrata.vlera"
 	            },
 	            "qmimi":{
@@ -40,7 +40,7 @@ def hello(komuna,viti):
 	        "$project":{
 	            "_id":0,
 	            "muaji" :"$_id.muaji", 
-	            "vlera":"$vleraKontrates", 
+	            "vlera":"$vlera", 
 	            "qmimi":"$qmimi"
 			}
 	    },
@@ -51,7 +51,12 @@ def hello(komuna,viti):
 	    }
 	])
 
-    return Response(response=json_util.dumps(rezultati), mimetype="application/json")
+# pergjigjen e kthyer dhe te konvertuar ne JSON ne baze te json_util.dumps() e ruajme ne  resp
+    resp = Response(
+            response=json_util.dumps(rezultati['result']),
+            mimetype='application/json')
+
+    return resp
 
 if __name__ == '__main__':
 
